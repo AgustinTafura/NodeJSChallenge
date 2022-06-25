@@ -1,3 +1,10 @@
-node_modules
+# Directories
+__pycache__/
+db-storage/
+.vscode/
+.pytest_cache/
+
+# Files
 .env
-package-lock.json
+*pyc
+.directory

@@ -1,0 +1,13 @@
+DB_NAME=
+DB_USER=
+DB_PASSWORD=
+DB_PORT=
+
+# ecommerce service
+ECOMMERCE_SERVICE_NAME=ecommerce-service
+ECOMMERCE_SERVICE_PATH=./ecommerce-service
+ECOMMERCE_APP_PORT=8000
+
+ECOMMERCE_MYSQL_NAME=ecommerce-mysql
+ECOMMERCE_MYSQL_DATABASE=clean_architecture_example
+ECOMMERCE_MYSQL_PORT=3301
