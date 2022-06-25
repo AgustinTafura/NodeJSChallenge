@@ -5,7 +5,6 @@ const usersController = require('../controllers/users');
 
 router
   .get('/', usersController.getAll)
-  .get('/', usersController.getAll)
   .put('/:id', usersController.update)
   .delete('/:id', usersController.remove);
 
