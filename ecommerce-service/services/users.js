@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt');
 const jwt = require('../modules/auth');
 const usersRepository = require('../repositories/users');
 
@@ -8,7 +7,7 @@ const getAll = async () => {
 };
 
 const create = async (body) => {
-  body.password = bcrypt.hashSync(body.password, 10);
+  body.password = body.password;
   const checkEmail = await usersRepository.findByEmail(body.email);
   if (checkEmail) {
     throw new Error('Email already registered');
@@ -27,7 +26,7 @@ const login = async (body) => {
   if (!data) {
     throw new Error('Email invalido');
   }
-  if (!bcrypt.compareSync(body.password, data.password)) {
+  if (body.password !== data.password) {
     throw new Error('Password invalido');
   } else {
     const userData = {

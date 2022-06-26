@@ -19,9 +19,8 @@ services:
     command: ["npm", "run", "dev"]
   
     volumes:
-      - ${ECOMMERCE_SERVICE_PATH}/src:/app/src
-      - ${ECOMMERCE_SERVICE_PATH}/tests:/app/tests
-      - ${ECOMMERCE_SERVICE_PATH}/Docker/database/firestore-account:/app/firestore-account
+      - ${ECOMMERCE_SERVICE_PATH}/:/app/
+
       
     ports:
       - ${ECOMMERCE_APP_PORT}:8080
