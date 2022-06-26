@@ -12,30 +12,30 @@ const create = async (body) => {
   if (checkEmail) {
     throw new Error('Email already registered');
   }
-  const data = await usersRepository.create(body);
-  return data;
+  const user = await usersRepository.create(body);
+  return user;
 };
 
 const getById = async (id) => {
-  const data = await usersRepository.getById(id);
-  return data;
+  const user = await usersRepository.getById(id);
+  return user;
 };
 
 const login = async (body) => {
-  const data = await usersRepository.findByEmail(body.email);
-  if (!data) {
+  const user = await usersRepository.findByEmail(body.email);
+  if (!user) {
     throw new Error('Email invalido');
   }
-  if (body.password !== data.password) {
+  if (body.password !== user.password) {
     throw new Error('Password invalido');
   } else {
     const userData = {
-      id: data.id,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      image: data.image,
-      roleId: data.roleId,
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      image: user.image,
+      roleId: user.roleId,
     };
 
     const token = jwt.createToken(userData);

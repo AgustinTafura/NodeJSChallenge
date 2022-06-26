@@ -57,6 +57,8 @@ const update = async (req, res, next) => {
 const getById = async (req, res, next) => {
   try {
     const user = await usersService.getById(req.params.tokenizedUserId);
+
+    !user && res.status(200).json('El usuario no existe')
     res.status(200).json({
       user,
     });
