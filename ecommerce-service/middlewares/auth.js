@@ -1,16 +1,15 @@
 const usersServices = require('../services/users');
-const auth = require('../modules/auth');
+const jwt = require('../modules/auth');
 
 const isAuth = async (req, res, next) => {
   const bearertoken = req.headers.authorization;
-  if (!bearertoken) return res.status(401).json({ error: 'Access denied' });
-
+  if (!bearertoken) return res.status(401).json({ error: 'Access denied: no token, please login o register' });
+  
   try {
     const token = bearertoken.split(' ')[1];
-    const { id } = auth.decodeToken(token);
+    const { id } = jwt.decodeToken(token);
     const userAuth = await usersServices.getById(id);
-    req.params.tokenizedUserId = userAuth.id;
-    if (!userAuth) return res.status(401).json({ error: 'Access denied' });
+    if (!userAuth) return res.status(401).json({ error: 'Access denied: invalid token, please login o register' });
 
     next();
   } catch (error) {
