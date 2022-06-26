@@ -14,7 +14,7 @@ const login = async (req, res, next) => {
   try {
     const jwt = await usersService.login(req.body);
     if (!jwt) {
-      res.status(401).json({ ok: 'false' });
+      res.status(401).json({ error: 'error' });
     } else {
       res.status(200).json({ token: jwt });
     }
