@@ -7,11 +7,12 @@ const getAll = async () => {
   return data;
 };
 
-const create = async (body) => {
-  const data = await db.Users.create(body);
+const create = async (data) => {
+  const user = await db.Users.create(data);
 
-  return data;
+  return user;
 };
+
 const getById = async (id) => {
   const user = await db.Users.findByPk(id, {
     attributes: {

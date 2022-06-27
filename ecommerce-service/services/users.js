@@ -19,9 +19,12 @@ const create = async (body) => {
     email: user.email,
 
   };
-
   const token = jwt.createToken(userData);
-  return token;
+  const data = {
+    user,
+    token
+  }
+  return data;
 };
 
 const getById = async (id) => {
@@ -64,8 +67,8 @@ const update = async (req) => {
     throw new Error('Sin autorizacion');
   }
   const changes = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
+    name: req.body.name,
+    email: req.body.email,
   };
   const userUpdate = await usersRepository.update(req.params.id, changes);
   if (!userUpdate) {
