@@ -13,7 +13,15 @@ const create = async (body) => {
     throw new Error('Email already registered');
   }
   const user = await usersRepository.create(body);
-  return user;
+  const userData = {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+
+  };
+
+  const token = jwt.createToken(userData);
+  return token;
 };
 
 const getById = async (id) => {
@@ -31,11 +39,9 @@ const login = async (body) => {
   } else {
     const userData = {
       id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      name: user.name,
       email: user.email,
-      image: user.image,
-      roleId: user.roleId,
+
     };
 
     const token = jwt.createToken(userData);
@@ -44,9 +50,7 @@ const login = async (body) => {
 };
 
 const remove = async (req) => {
-  if (req.params.id !== req.params.tokenizedUserId.toString() && req.params.adminRole >= 2) {
-    throw new Error('Sin autorizacion');
-  }
+
   const user = await usersRepository.getById(req.params.id);
   if (!user) {
     throw new Error('Usuario inexistente');
