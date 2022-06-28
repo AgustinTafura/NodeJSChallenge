@@ -2,13 +2,26 @@ const db = require('../database/index');
 
 const getAll = async () => {
   const allCategories = await db.Categories.findAll({
-    attributes: ['id', 'name', 'description']
+    attributes: {
+      exclude: ['createdAt', 'updatedAt', 'deletedAt'],
+    },
+    include: [
+        {
+            model: db.Products,
+            // as: 'papa'
+          },
+        ]
   });
   return allCategories;
 };
 
 const getById = async (id) => {
   const category = await db.Categories.findByPk(id);
+  return category;
+};
+
+const getByName = async (name) => {
+  const category = await db.Categories.findOne({ where: { name } });
   return category;
 };
 
@@ -29,6 +42,7 @@ const update = async (id, data) => {
 
 module.exports = {
   getAll,
+  getByName,
   getById,
   create,
   remove,
