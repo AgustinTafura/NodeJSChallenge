@@ -10,7 +10,7 @@ const getAll = async () => {
 const getById = async (id) => {
   const category = await categoriesRepository.getById(id);
   if (!category) {
-    const error = new Error('La categoria no existe!');
+    const error = new Error('La categoria no existe');
     error.status = 404;
     throw error;
   }
@@ -21,7 +21,7 @@ const create = async (body) => {
   const name = body.name;
   const category = await categoriesRepository.getByName(name);
   if (category) {
-    const error = new Error('Category already exists.');
+    const error = new Error('La categoria no existe');
     throw error;
   }
   return categoriesRepository.create(body);
@@ -30,7 +30,7 @@ const create = async (body) => {
 const remove = async (id) => {
   const category = await categoriesRepository.getById(id);
   if (!category) {
-    const error = new Error(`The category ${id} does not exist.`);
+    const error = new Error('La categoria no existe');
     error.status = 404;
     throw error;
   }
