@@ -1,5 +1,4 @@
 const { Model } = require('sequelize');
-const db = require('../database/index');
 
 module.exports = (sequelize, DataTypes) => {
   class Products extends Model {
@@ -8,8 +7,10 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(db) {
-      Products.belongsTo(db.Categories, {foreignKey: 'id'} );
+    static associate(models) {
+      Products.belongsTo(models.Categories, {foreignKey: 'categories'} );
+      Products.belongsTo(models.Users, {foreignKey: 'seller_user'} );
+      Products.belongsTo(models.Transactions, {foreignKey: 'transactions'} );
     }
   }
   Products.init({

@@ -6,14 +6,15 @@ const getAll = async () => {
       exclude: ['createdAt', 'updatedAt', 'deletedAt', 'categories', 'transactions', 'seller_user'],
     },
     include: [
-      // {
-        //   model: User,
-      //   as: 'seller_user'
-      // },
-      // {
-        //   model: Transaction,
-      //   as: 'transactions'
-      // },
+      {
+          model: db.Users,
+          attributes: {
+            exclude: ['createdAt', 'updatedAt', 'deletedAt'],
+          },
+      },
+      {
+          model: db.Transaction,
+      },
       {
         model: db.Categories,
         attributes: {

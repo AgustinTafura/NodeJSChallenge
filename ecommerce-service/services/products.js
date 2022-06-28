@@ -35,7 +35,7 @@ const remove = async (id) => {
 const update = async (id, body) => {
   const product = await productsRepository.getById(id);
   if (!product) {
-    const error = new Error('La categoria no existe');
+    const error = new Error('El producto no existe');
     error.status = 404;
     throw error;
   }
