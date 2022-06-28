@@ -6,11 +6,11 @@ const getAll = async () => {
       exclude: ['createdAt', 'updatedAt', 'deletedAt'],
     },
     include: [
-        {
-            model: db.Products,
-            // as: 'papa'
-          },
-        ]
+      {
+        model: db.Products,
+        // as: 'papa'
+      },
+    ]
   });
   return allCategories;
 };

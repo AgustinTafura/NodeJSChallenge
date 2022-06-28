@@ -8,29 +8,24 @@ const getAll = async () => {
 };
 
 const getById = async (id) => {
-  const category = await productsRepository.getById(id);
-  if (!category) {
-    const error = new Error('La categoria no existe!');
+  const product = await productsRepository.getById(id);
+  if (!product) {
+    const error = new Error('El producto no existe');
     error.status = 404;
     throw error;
   }
-  return category;
+  return product;
 };
 
 const create = async (body) => {
   const name = body.name;
-  const category = await productsRepository.getByName(name);
-  if (category) {
-    const error = new Error('Category already exists.');
-    throw error;
-  }
   return productsRepository.create(body);
 };
 
 const remove = async (id) => {
-  const category = await productsRepository.getById(id);
-  if (!category) {
-    const error = new Error(`The category ${id} does not exist.`);
+  const product = await productsRepository.getById(id);
+  if (!product) {
+    const error = new Error(`El producto no existe`);
     error.status = 404;
     throw error;
   }
@@ -38,15 +33,15 @@ const remove = async (id) => {
 };
 
 const update = async (id, body) => {
-  const category = await productsRepository.getById(id);
-  if (!category) {
+  const product = await productsRepository.getById(id);
+  if (!product) {
     const error = new Error('La categoria no existe');
     error.status = 404;
     throw error;
   }
   await productsRepository.update(id, body);
-  const categoryUpdate = await productsRepository.getById(id);
-  return categoryUpdate;
+  const productUpdate = await productsRepository.getById(id);
+  return productUpdate;
 };
 
 module.exports = {

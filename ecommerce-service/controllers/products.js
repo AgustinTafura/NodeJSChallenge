@@ -5,7 +5,6 @@ const getAll = async (req, res, next) => {
     const products = await productsService.getAll();
     res.status(200).json(products);
   } catch (e) {
-    console.log(999, e)
     next(e);
   }
 };
@@ -24,6 +23,7 @@ const create = async (req, res, next) => {
     const products = await productsService.create(req.body);
     res.status(200).json( products );
   } catch (e) {
+    console.log(999, e)
     next(e);
   }
 };
@@ -31,7 +31,8 @@ const create = async (req, res, next) => {
 const remove = async (req, res, next) => {
   try {
     await productsService.remove(req.params.id);
-    res.status(200);
+    res.status(200).json('eliminado');
+
   } catch (e) {
     next(e);
   }

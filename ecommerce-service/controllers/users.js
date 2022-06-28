@@ -34,7 +34,7 @@ const create = async (req, res, next) => {
 const remove = async (req, res, next) => {
   try {
     await usersService.remove(req);
-    res.status(204);
+    res.status(200).json('eliminado');
   } catch (e) {
     next(e);
   }

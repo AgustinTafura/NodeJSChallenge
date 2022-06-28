@@ -30,8 +30,7 @@ const create = async (req, res, next) => {
 const remove = async (req, res, next) => {
   try {
     await categoriesService.remove(req.params.id);
-    res.status(200);
-  } catch (e) {
+    res.status(200).json('eliminado');  } catch (e) {
     next(e);
   }
 };
