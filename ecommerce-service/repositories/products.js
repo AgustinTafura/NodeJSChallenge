@@ -26,7 +26,27 @@ const getAll = async () => {
 };
 
 const getById = async (id) => {
-  const product = await db.Products.findByPk(id);
+  const product = await db.Products.findByPk(id, {
+    attributes: {
+      exclude: ['createdAt', 'updatedAt', 'deletedAt', 'categories', 'transactions', 'seller_user'],
+    },
+    include: [
+      // {
+        //   model: User,
+      //   as: 'seller_user'
+      // },
+      // {
+        //   model: Transaction,
+      //   as: 'transactions'
+      // },
+      {
+        model: db.Categories,
+        attributes: {
+          exclude: ['createdAt', 'updatedAt', 'deletedAt'],
+        },
+      },
+    ],
+  });
   return product;
 };
 
