@@ -10,7 +10,7 @@ const create = async (body) => {
   body.password = body.password;
   const checkEmail = await usersRepository.findByEmail(body.email);
   if (checkEmail) {
-    throw new Error('Email already registered');
+    throw new Error('Email ya registrado');
   }
   const user = await usersRepository.create(body);
   const userData = {
