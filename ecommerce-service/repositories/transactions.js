@@ -8,6 +8,8 @@ const getAll = async () => {
     include: [
       {
         model: db.Products,
+        attributes: ['id'],
+        through: { attributes: [] }, // no include nested field from next through table
       },
     ]
   });
@@ -36,10 +38,11 @@ const getByName = async (name) => {
 };
 
 const create = async (body) => {
-  const transaction = await db.Transactions.create(body)
+  var transaction = await db.Transactions.create(body)
   body.products.map(async product => {
     await transaction.addProduct(product, { through: 'Transactions_Products' });
   })
+  transaction = await getById(transaction.id) // include associations
   return transaction;
 };
 
