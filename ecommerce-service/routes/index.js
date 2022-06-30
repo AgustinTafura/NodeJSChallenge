@@ -4,11 +4,13 @@ const userRoutes = require('./users');
 const categoriesRoutes = require('./categories');
 const authRouter = require('./auth');
 const productsRouter = require('./products');
+const transactionsRouter = require('./transactions');
 
 /* Routes */
 router.use('/users', userRoutes);
 router.use('/categories', categoriesRoutes);
 router.use('/auth', authRouter);
 router.use('/products', productsRouter);
+router.use('/transactions', transactionsRouter);
 
 module.exports = router;
