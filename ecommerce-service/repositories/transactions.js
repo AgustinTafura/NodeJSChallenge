@@ -37,7 +37,6 @@ const getByName = async (name) => {
 
 const create = async (body) => {
   const transaction = await db.Transactions.create(body)
-  console.log(22)
   body.products.map(async product => {
     await transaction.addProduct(product, { through: 'Transactions_Products' });
   })

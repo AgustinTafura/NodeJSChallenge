@@ -14,7 +14,6 @@ const getById = async (req, res, next) => {
     const transaction = await transactionsService.getById(req.params.id);
     res.status(200).json( transaction );
   } catch (e) {
-    console.log(e)
     next(e);
   }
 };

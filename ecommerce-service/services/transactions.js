@@ -16,17 +16,13 @@ const getById = async (id) => {
     error.status = 404;
     throw error;
   }
-  console.log(44)
   return transaction;
 };
 
 const create = async (body) => {
   // const name = body.name;
-  console.log(111)
   const transaction = await transactionsRepository.create(body);
-  console.log(33, transaction.id)
    const fullTransaction = await getById(transaction.id)
-   console.log(55, transaction.id)
    return fullTransaction
 };
 
