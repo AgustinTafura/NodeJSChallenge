@@ -2,7 +2,7 @@ const db = require('../database/index');
 
 const getAll = async () => {
   const data = await db.Users.findAll({
-    attributes: ['name', 'email', 'password'],
+    attributes: ['id', 'name', 'email'],
   });
   return data;
 };
@@ -15,15 +15,14 @@ const create = async (data) => {
 
 const getById = async (id) => {
   const user = await db.Users.findByPk(id, {
-    attributes: {
-      exclude: ['password'],
-    },
+    attributes: ['id', 'name', 'email'],
   });
   return user;
 };
 
 const findByEmail = async (email) => {
   const data = await db.Users.findOne({
+    attributes: ['id', 'name', 'email'],
     where: { email },
     raw: true,
   });
@@ -39,10 +38,12 @@ const update = async (id, changes) => {
   const userUpdate = await db.Users.update(
     { name: changes.name, email: changes.email, password: changes.password, },
     {
+      attributes: ['id', 'name', 'email', 'password'],
       where: {
         id:id,
       },
     }
+    
   );
   return userUpdate;
 };
