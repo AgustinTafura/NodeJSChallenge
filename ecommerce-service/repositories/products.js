@@ -12,9 +12,9 @@ const getAll = async () => {
             exclude: ['createdAt', 'updatedAt', 'deletedAt'],
           },
       },
-      {
-          model: db.Transaction,
-      },
+    //   {
+    //       // model: db.Transaction,
+    //   },
       {
         model: db.Categories,
         attributes: {
@@ -22,7 +22,7 @@ const getAll = async () => {
         },
       },
     ],
-  });
+  }); 
   return products;
 };
 

@@ -23,7 +23,7 @@ const create = async (req, res, next) => {
     const products = await productsService.create(req.body);
     res.status(200).json( products );
   } catch (e) {
-    console.log(999, e)
+
     next(e);
   }
 };
