@@ -8,7 +8,7 @@ const getAll = async () => {
     include: [
       {
         model: db.Products,
-        attributes: ['id'],
+        attributes: ['id', 'name', 'quantity'],
         through: { attributes: [] }, // no include nested field from next through table
       },
     ]
@@ -24,7 +24,7 @@ const getById = async (id) => {
     include: [
       {
         model: db.Products,
-        attributes: ['id'],
+        attributes: ['id', 'name', 'quantity'],
         through: { attributes: [] }, // no include nested field from next through table
       },
     ]
