@@ -8,7 +8,7 @@ const getAll = async () => {
     include: [
       {
         model: db.Products,
-        // as: 'papa'
+        attributes: ['id', 'name', 'quantity'],
       },
     ]
   });
@@ -16,7 +16,14 @@ const getAll = async () => {
 };
 
 const getById = async (id) => {
-  const category = await db.Categories.findByPk(id);
+  const category = await db.Categories.findByPk(id, {
+    include: [
+      {
+        model: db.Products,
+        attributes: ['id', 'name', 'quantity'],
+      },
+    ]
+  });
   return category;
 };
 
