@@ -8,18 +8,15 @@ const getAll = async () => {
     include: [
       {
           model: db.Users,
-          attributes: {
-            exclude: ['createdAt', 'updatedAt', 'deletedAt'],
-          },
+          attributes: ['id'],
       },
-    //   {
-    //       // model: db.Transaction,
-    //   },
+      {
+        model: db.Transactions,
+        attributes: ['id'],
+    },
       {
         model: db.Categories,
-        attributes: {
-          exclude: ['createdAt', 'updatedAt', 'deletedAt'],
-        },
+        attributes: ['id'],
       },
     ],
   }); 
@@ -32,19 +29,17 @@ const getById = async (id) => {
       exclude: ['createdAt', 'updatedAt', 'deletedAt', 'categories', 'transactions', 'seller_user'],
     },
     include: [
-      // {
-        //   model: User,
-      //   as: 'seller_user'
-      // },
-      // {
-        //   model: Transaction,
-      //   as: 'transactions'
-      // },
+      {
+          model: db.Users,
+          attributes: ['id'],
+      },
+      {
+        model: db.Transactions,
+        attributes: ['id'],
+    },
       {
         model: db.Categories,
-        attributes: {
-          exclude: ['createdAt', 'updatedAt', 'deletedAt'],
-        },
+        attributes: ['id'],
       },
     ],
   });
