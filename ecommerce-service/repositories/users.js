@@ -1,8 +1,20 @@
+const {sequelize} = require('sequelize');
 const db = require('../database/index');
 
 const getAll = async () => {
   const data = await db.Users.findAll({
-    attributes: ['id', 'name', 'email'],
+    group: "Users.id", // necessary in findAll
+    attributes: ['id', 'name', 'email',[db.sequelize.fn("COUNT", db.sequelize.col("Products.id")), "seller_user"]],
+    include: [
+      {
+        model: db.Products,
+        attributes: [],
+      },
+      {
+        model: db.Transactions,
+        // attributes: ["id"],
+      }
+    ]
   });
   return data;
 };
@@ -15,14 +27,23 @@ const create = async (data) => {
 
 const getById = async (id) => {
   const user = await db.Users.findByPk(id, {
-    attributes: ['id', 'name', 'email'],
+    attributes: ['id', 'name', 'email', [db.sequelize.fn("COUNT", db.sequelize.col("Products.id")), "seller_user"]],
+    include: [
+      {
+        model: db.Products,
+        attributes: [],
+      },
+      {
+        model: db.Transactions,
+        // attributes: ["id"],
+      }
+    ]
   });
   return user;
 };
 
 const findByEmail = async (email) => {
   const data = await db.Users.findOne({
-    attributes: ['id', 'name', 'email'],
     where: { email },
     raw: true,
   });
