@@ -1,7 +1,6 @@
 /* eslint-disable prefer-destructuring */
 const transactionsRepository = require('../repositories/transactions');
-const productsRepository = require('../repositories/products');
-const products = require('../models/products');
+const productsService = require('../services/products');
 
 const limit = 10;
 const getAll = async () => {
@@ -22,8 +21,13 @@ const getById = async (id) => {
 const create = async (body) => {
   // const name = body.name;
   const transaction = await transactionsRepository.create(body);
-   const fullTransaction = await getById(transaction.id)
-   return fullTransaction
+  const fullTransaction = await getById(transaction.id)
+
+  body.products.map(async product=>{
+    await productsService.removeItem(product, 1)
+  })
+
+  return fullTransaction
 };
 
 const remove = async (id) => {
