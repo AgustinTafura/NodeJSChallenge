@@ -1,8 +1,8 @@
 const jwt = require('../modules/auth');
 const usersRepository = require('../repositories/users');
 
-const getAll = async () => {
-  const users = await usersRepository.getAll();
+const getAll = async (req) => {
+  const users = await usersRepository.getAll(req);
   return users;
 };
 

@@ -1,10 +1,21 @@
-const {sequelize} = require('sequelize');
+const {Op} = require('sequelize');
 const db = require('../database/index');
 
-const getAll = async () => {
+const getAll = async (req) => {
+  const { type } = req.query
+  var havingStatement = {}
+  if (type === 'buyer' || type === 'seller') {
+    const column = type === 'seller' ? db.sequelize.col("Products.id") : db.sequelize.col("Transactions.id")
+    havingStatement = db.sequelize.where(db.sequelize.fn('COUNT', column), Op.gte, 1)
+  }
+  
   const data = await db.Users.findAll({
     group: "Users.id", // necessary in findAll
-    attributes: ['id', 'name', 'email',[db.sequelize.fn("COUNT", db.sequelize.col("Products.id")), "seller_user"]],
+    attributes: [
+      'id', 'name', 'email',
+      [db.sequelize.fn("COUNT", db.sequelize.col("Products.id")), "seller"],
+      [db.sequelize.fn("COUNT", db.sequelize.col("Transactions.id")), "buyer"],
+    ],
     include: [
       {
         model: db.Products,
@@ -12,9 +23,10 @@ const getAll = async () => {
       },
       {
         model: db.Transactions,
-        // attributes: ["id"],
+        attributes: [],
       }
-    ]
+    ],
+    having: havingStatement
   });
   return data;
 };
@@ -27,11 +39,12 @@ const create = async (data) => {
 
 const getById = async (id) => {
   const user = await db.Users.findByPk(id, {
-    attributes: ['id', 'name', 'email', [db.sequelize.fn("COUNT", db.sequelize.col("Products.id")), "seller_user"]],
+    attributes: ['id', 'name', 'email'],
     include: [
       {
         model: db.Products,
-        attributes: [],
+        attributes: ['name'],
+
       },
       {
         model: db.Transactions,

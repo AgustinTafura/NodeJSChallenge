@@ -3,9 +3,10 @@ const modules = require('../modules/auth');
 
 const getAll = async (req, res, next) => {
   try {
-    const data = await usersService.getAll();
+    const data = await usersService.getAll(req);
     res.status(200).json(data);
   } catch (e) {
+    console.log(123,e)
     next(e);
   }
 };
