@@ -1,15 +1,14 @@
-# Use the official Node image.
-FROM node:14
+FROM node:12
 
-ENV APP_HOME /app
+# Create app directory
+WORKDIR /app
 
-WORKDIR $APP_HOME
+# Install app dependencies
+COPY package*.json ./
 
-# Copy files into the container image.
-COPY . .
-
-# Install dependencies.
 RUN npm install
 
-# Run the web service on container startup.
-EXPOSE 8080
+# Bundle app source
+COPY . .
+
+CMD [ "npm", "start" ]
