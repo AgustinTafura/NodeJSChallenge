@@ -13,35 +13,38 @@ services:
       - .env
     
     environment:
-      - SEQUELIZE_HOST=${ECOMMERCE_MYSQL_NAME}
-      - SEQUELIZE_DATABASE=${ECOMMERCE_MYSQL_DATABASE}
+      - DB_NAME=${DB_NAME}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DIALECT=${DB_DIALECT}
 
     command: ["npm", "run", "dev"]
   
     volumes:
+      # :/app/ porque el dockerfile de éste servicio se crea en esa carpeta (WORKDIR /app)
       - ${ECOMMERCE_SERVICE_PATH}/:/app/
 
       
     ports:
-      - ${ECOMMERCE_APP_PORT}:8080
+      - ${ECOMMERCE_APP_PORT}:3000
     
     depends_on:
       - ecommerce-mysql
   
   ecommerce-mysql:
+      
     platform: linux/x86_64
     build: ${ECOMMERCE_SERVICE_PATH}/database/.
-  
     restart: always
-  
-    container_name: ${ECOMMERCE_MYSQL_NAME}
-  
+    container_name: ${DB_NAME}
+
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=${ECOMMERCE_MYSQL_DATABASE}
+      - MYSQL_DATABASE=${DB_DATABASE}
 
     ports:
-      - ${ECOMMERCE_MYSQL_PORT}:3306
-  
+      - ${DB_PORT}:3306
+
     command: 
       - --default-authentication-plugin=mysql_native_password

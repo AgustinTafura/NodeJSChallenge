@@ -8,8 +8,12 @@ const config = require(__dirname + '/../config/config').development;
 const pathModels = __dirname + '/../models'
 const db = {};
 
-
-const sequelize = new Sequelize(config.database, config.username, config.password, config);
+console.log(444, config.database, config.username, config.password, config.dialect, config.host)
+const sequelize = new Sequelize(config.database, config.username, config.password, {
+  dialect: config.dialect,
+  host: config.host,
+  logging: false,
+});
 fs
   .readdirSync(pathModels)
   .filter(file => {
