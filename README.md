@@ -29,7 +29,7 @@ Run ```docker-compose``` command inside **docker-nodejs** folder.
 * Removing the services: ```docker-compose down```
 
 By default the microservices will run under the following ports:
-- ecommerce-service: 8000
+- ecommerce-service: 3000 
 
 Check the **.env.example** file to change these or any other params.
 

@@ -7,6 +7,8 @@ const productsRouter = require('./products');
 const transactionsRouter = require('./transactions');
 
 /* Routes */
+router.get('/',(req,res)=>res.json('App running'))
+
 router.use('/users', userRoutes);
 router.use('/categories', categoriesRoutes);
 router.use('/auth', authRouter);

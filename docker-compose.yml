@@ -19,10 +19,9 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_DIALECT=${DB_DIALECT}
 
-    command: ["npm", "run", "dev"]
+    command: ["npm", "run", "start"]
   
     volumes:
-      # :/app/ porque el dockerfile de éste servicio se crea en esa carpeta (WORKDIR /app)
       - ${ECOMMERCE_SERVICE_PATH}/:/app/
 
       
