@@ -37,6 +37,9 @@ Check the **.env.example** file to change these or any other params.
 
 The NodeJS application will probably throw an exception the first time, because it will try to connect to the MySQL service that is still initializing for the first time; in this case wait for MySQL to fully initialize first and then run the command `docker-compose restart $NAME_SERVICE` ('ecommerce-app' in this case) in another terminal to restart the crashed service.
 
+**Database models:**
+![image](backend%20test%20model.drawio.png)
+
 ### Testing ⚙️
 
 ### Autores ✒️
