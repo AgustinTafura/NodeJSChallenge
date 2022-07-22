@@ -11,6 +11,13 @@ module.exports = (sequelize, DataTypes) => {
       Categories.hasMany(models.Products, {foreignKey: 'categories'} );
     }
   }
+
+  let tableName = "Categories";
+
+  if (process.env.NODE_ENV === 'test') {
+    tableName += "_test";
+  }
+
   Categories.init({
     name: DataTypes.STRING,
     description: DataTypes.STRING,
@@ -18,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Categories',
+    tableName,
     // timestamps: false,
     paranoid: true
   });

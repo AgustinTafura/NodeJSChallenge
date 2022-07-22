@@ -10,9 +10,16 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Products.belongsTo(models.Categories, {foreignKey: 'categories'} );
       Products.belongsTo(models.Users, {foreignKey: 'seller_user'} );
-      Products.belongsToMany(models.Transactions, { through: 'Transactions_Products' } );
+      Products.belongsToMany(models.Transactions, { through: process.env.NODE_ENV === 'test'?'Transactions_Products_dev':'Transactions_Products' } );
     }
   }
+
+  let tableName = "Products";
+
+  if (process.env.NODE_ENV === 'test') {
+    tableName += "_test";
+  }
+
   Products.init({
     name: DataTypes.STRING,
     description: DataTypes.STRING,
@@ -24,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Products',
+    tableName,
     // timestamps: false,
     paranoid: true
   });

@@ -9,9 +9,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Transactions.belongsTo(models.Users, {foreignKey: 'buyer_user'} );
-      Transactions.belongsToMany(models.Products, { through: 'Transactions_Products' } );
+      Transactions.belongsToMany(models.Products, { through: process.env.NODE_ENV === 'test'?'Transactions_Products_dev':'Transactions_Products' } );
     }
   }
+
+  let tableName = "Transactions";
+
+  if (process.env.NODE_ENV === 'test') {
+    tableName += "_test";
+  }
+
   Transactions.init({
     buyer_user: {
       type: DataTypes.INTEGER,
@@ -20,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Transactions',
+    tableName,
     // timestamps: false,
     paranoid: true
   });

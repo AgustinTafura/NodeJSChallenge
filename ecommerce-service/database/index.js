@@ -53,7 +53,7 @@ async function initialize() {
     alter: false,
   })
   .then(function() {
-    console.log('DB connection sucessful.');
+    console.log(`DB connection sucessful on port ${sequelize.config.port}`);
   })
   .catch(error => {
     console.log("Couldn't sync database", error);

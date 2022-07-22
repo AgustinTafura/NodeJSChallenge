@@ -13,6 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       
     }
   }
+
+  let tableName = "Users";
+
+  if (process.env.NODE_ENV === 'test') {
+    tableName += "_test";
+  }
+
+
   Users.init(
     {
       name: DataTypes.STRING,
@@ -23,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Users",
+      tableName,
       // timestamps: false,
       paranoid: true,
       
