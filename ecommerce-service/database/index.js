@@ -7,6 +7,9 @@ const basename = path.basename(__filename);
 const config = require(__dirname + '/../config/config')[process.env.NODE_ENV || 'development'];
 const mysql = require('mysql2/promise');
 const pathModels = __dirname + '/../models'
+const { Umzug, SequelizeStorage } = require('umzug');
+const SeederDB = require('./seeder');
+
 const db = {};
 
 
@@ -27,8 +30,7 @@ async function initialize() {
   // connect to db
   const sequelize = new Sequelize(database, username, password, {
     dialect,
-    // host // USE ONLY WITH DOCKER-COMPOSE MYSQL SERVICE
-    // logging,
+    host
   });
 
   // init models and add them to the exported db object
@@ -58,7 +60,14 @@ async function initialize() {
   .catch(error => {
     console.log("Couldn't sync database", error);
   });
+
+  //seed Database in dev and test mode
+  if (process.env.NODE_ENV !== 'production') {
+    const seeder = new SeederDB(sequelize)
+    seeder.up()
+  }
   
+
   db.sequelize = sequelize;
   db.Sequelize = Sequelize;
 

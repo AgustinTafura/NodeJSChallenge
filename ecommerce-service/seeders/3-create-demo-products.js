@@ -1,8 +1,14 @@
 'use strict';
 
+let tableName = "Products";
+
+if (process.env.NODE_ENV === 'test') {
+  tableName += "_test";
+}
+
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('Products', [
+  up: async ({ context: queryInterface }) => {
+    await queryInterface.bulkInsert(tableName, [
       {
         id: 1,
         name: "raqueta de tenis",
@@ -105,8 +111,8 @@ module.exports = {
   ], {});
   },
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Products', null, {});
+  down: async ({ context: queryInterface }) => {
+    await queryInterface.bulkDelete(tableName, null, {});
 
   }
 };
