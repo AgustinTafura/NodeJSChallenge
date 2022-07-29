@@ -65,9 +65,9 @@ async function initialize() {
   if (process.env.NODE_ENV !== 'production') {
     const seeder = new SeederDB(sequelize)
     seeder.up()
+    db.seeder = seeder
   }
   
-
   db.sequelize = sequelize;
   db.Sequelize = Sequelize;
 

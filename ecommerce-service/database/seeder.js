@@ -10,7 +10,7 @@ class SeederDB {
             migrations: { glob: 'seeders/*.js' },
             context: sequelize.getQueryInterface(),
             storage: new SequelizeStorage({ sequelize }),
-            logger: console,
+            logger: process.env.NODE_ENV === 'test' ?  undefined : console,
         });
     }   
 
@@ -22,7 +22,7 @@ class SeederDB {
 
     async down() {
     
-        await this.umzug.down();
+        await this.umzug.down({ to: 0 });
     
     }
 }

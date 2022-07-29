@@ -6,7 +6,6 @@ const getAll = async (req, res, next) => {
     const data = await usersService.getAll(req);
     res.status(200).json(data);
   } catch (e) {
-    console.log(123,e)
     next(e);
   }
 };
