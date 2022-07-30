@@ -9,16 +9,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       quantity: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       status: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       seller_user: {
         type: Sequelize.INTEGER,
@@ -27,7 +30,8 @@ module.exports = {
           key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onDelete: 'SET NULL',
+        allowNull: false,
       },
       categories: {
         type: Sequelize.INTEGER,
@@ -36,7 +40,8 @@ module.exports = {
           key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onDelete: 'SET NULL',
+        allowNull: false,
       },
       deletedAt: {
         type: Sequelize.DATE
