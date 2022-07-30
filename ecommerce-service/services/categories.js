@@ -21,7 +21,7 @@ const create = async (body) => {
   const name = body.name;
   const category = await categoriesRepository.getByName(name);
   if (category) {
-    const error = new Error('La categoria no existe');
+    const error = new Error('La categoria ya existe');
     throw error;
   }
   return categoriesRepository.create(body);
