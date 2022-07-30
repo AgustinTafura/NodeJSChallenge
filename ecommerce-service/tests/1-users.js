@@ -11,12 +11,12 @@ chai.use(chaiHttp);
 setTimeout(function() {
 
     
-    after(function() {
+    // after(function() {
+    //     if (db.seeder) {
+    //         db.seeder.down()
+    //     }
+    // });
 
-        if (db.seeder) {
-            db.seeder.down()
-        }
-    });
     describe("User endpoints testing", function() {
         
 
@@ -26,13 +26,6 @@ setTimeout(function() {
             password:"123123",
         };
         
-        // Default User created on migration 
-        const defaultUser = {
-            name: "user 1",
-            email: "email1@mail.com",
-            password:"123123",
-        };
-    
         
         it('Should create and get a user', (done) => {
             chai
@@ -54,7 +47,7 @@ setTimeout(function() {
             chai
             .request(app)
             .post('/auth/login')
-            .send(defaultUser)
+            .send(newUser)
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.have.property('token');
